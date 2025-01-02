@@ -1,0 +1,21 @@
+
+version: 2
+
+macros:
+  - name: generate_schema_name
+    description:  >
+      Esta macro permite modificar el esquema por defecto
+      utilizado en DBT para un nodo (modelo, test, snapshot, etc.).
+      Recibe el nombre del esquema y el nodo correspondiente, lo que
+      permite realizar el cambio de forma dinámica.
+    arguments:
+      - name: custom_schema_name
+        type: string
+        description: >
+          Nombre del esquema al que se desea cambiar. Este será
+          el nuevo esquema donde se alojarán los datos.
+      - name: node
+        type: string
+        description: >
+          Nodo al cual se le aplicará el cambio de esquema.
+          Puede ser un modelo, test, snapshot, entre otros componentes de DBT.
