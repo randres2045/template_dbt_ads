@@ -1,0 +1,5 @@
+{
+    "project_slug": "DBT Project",
+    "service_account_path": "/home",
+    "gcp_project_id": "GCP Project"
+}
