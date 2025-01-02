@@ -1,0 +1,44 @@
+
+version: 2
+
+# definición general de la fuente
+sources:
+  - name: 
+    description: >
+      .
+    database: {{ cookiecutter.gcp_project_id | trim }}
+    schema: raw_data_ads
+    loader: airbyte
+    meta:
+      owner: data_engineer
+    config:
+      contract:
+        enforced: true
+    tags: [raw_data]
+    freshness:
+      warn_after:
+        count: 24
+        period: hour
+      warn_after:
+        count: 3
+        period: day
+
+    # definición de las tablas
+    tables:
+      - name: 
+        description: >
+          .
+        loaded_at_field: _airbyte_emitted_at
+        tags: [info]
+        meta:
+          owner: data_engineer
+        columns:
+          - name: _airbyte_ab_id
+            data_type: STRING
+            description: Un UUID asignado por Airbyte a cada registro procesado.
+          - name: _airbyte_emitted_at
+            data_type: INTEGER
+            description: Una marca de tiempo que representa cuándo se extrajeron los datos.
+          - name: _airbyte_data
+            data_type: STRING
+            description: Los datos residen en esta columna como un blob json.

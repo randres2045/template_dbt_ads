@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  # modelo para representar los anuncios
+  - name: 
+    description: >
+      .
+    latest_version: 1
+    access: protected
+    config:
+      group: data_engineering
+
+    # columnas del modelo
+    columns:
+      - name: 
+        data_type: STRING | DATETIME
+        description: >
+          .
+
+    # versiones del modelo
+    versions:
+      - v: 1

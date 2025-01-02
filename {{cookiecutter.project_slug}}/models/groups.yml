@@ -1,0 +1,11 @@
+
+groups:
+  - name: data_engineering
+    owner:
+      email: "@vereon.co"
+      description: Recurso dedicado exclusivamente al proceso de ingeniería de datos
+
+  - name: data_analysis
+    owner:
+      email: "@vereon.co"
+      description: Recurso generado para el análisis de datos
