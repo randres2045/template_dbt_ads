@@ -1,0 +1,25 @@
+{{ cookiecutter.project_slug | replace(' ', '_') | replace('-', '_') | lower | trim }}:
+  outputs:
+    development:
+      dataset: staging_data_ads
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      keyfile: {{ cookiecutter.service_account_path | trim }}/service_account.json
+      location: us-east1
+      method: service-account
+      priority: batch
+      project: {{ cookiecutter.gcp_project_id }}
+      threads: 3
+      type: bigquery
+    production:
+      dataset: staging_data_ads
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      keyfile: /secrets/{{ cookiecutter.project_slug | replace(' ', '_') | replace('-', '_') | lower | trim }}/service_account.json
+      location: us-east1
+      method: service-account
+      priority: batch
+      project: {{ cookiecutter.gcp_project_id | trim }}
+      threads: 3
+      type: bigquery
+  target: production

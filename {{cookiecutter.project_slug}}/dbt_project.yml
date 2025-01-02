@@ -1,0 +1,94 @@
+
+name: "{{ cookiecutter.project_slug | replace(' ', '_') | replace('-', '_') | lower | trim }}"
+version: "1.0.0"
+
+
+# specify a minimum dbt version.
+require-dbt-version: ">=1.8.6"
+
+
+# this setting configures which "profile" dbt uses for this project.
+profile: "{{ cookiecutter.project_slug | replace(' ', '_') | replace('-', '_') | lower | trim }}"
+
+
+# these configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+
+
+# directories to be removed by `dbt clean`.
+clean-targets:
+  - "target"
+  - "dbt_packages"
+  - "logs"
+
+
+# configuring models.
+models:
+  colchones_romance:
+    +tags: "{{ cookiecutter.project_slug | replace(' ', '_') | replace('-', '_') | lower | trim }}"
+    +contract:
+        enforced: true
+    +labels:
+      client: "{{ cookiecutter.project_slug | replace(' ', '-') | replace('_', '-') | lower | trim }}"
+      area: data-analytics
+      environment: production
+      service_gcp: bigquery
+      admin: vereon
+
+    staging:
+      +materialized: view
+      +schema: staging_data_ads
+      +tags: staging
+      +labels:
+        process: data-engineering
+        objective: dbt-management
+        layer: raw
+
+    intermediate:
+      +materialized: view
+      +schema: staging_data_ads
+      +tags: intermediate
+      +labels:
+        process: data-engineering
+        objective: dbt-management
+        layer: interim
+
+    marts:
+      +tags: datamart
+      +labels:
+        layer: datamart
+
+      ads:
+        +materialized: incremental
+        +schema: ads
+        +tags: reporting-ads
+        +labels:
+          objective: reporting-ads
+          process: data-analysis
+
+      analysis:
+        +materialized: table
+        +schema: analysis
+        +tags: reporting
+        +labels:
+          objective: reporting
+          process: data-analysis
+
+      financial:
+        +materialized: table
+        +schema: financial
+        +tags: reporting-customer
+        +labels:
+          objective: reporting-customer
+          process: data-analysis
+
+      operation:
+        +materialized: table
+        +schema: operation
+        +tags: operation-data
+        +labels:
+          objective: operation-data
+          process: data-engineering
